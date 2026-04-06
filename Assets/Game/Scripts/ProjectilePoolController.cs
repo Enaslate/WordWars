@@ -1,21 +1,21 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyPoolController : MonoBehaviour
+public class ProjectilePoolController : MonoBehaviour
 {
-    [SerializeField] private EnemyView _enemyPrefab;
-    private ObjectPool<EnemyView> _enemyPool;
+    [SerializeField] private ProjectileView _projectilePrefab;
+    private ObjectPool<ProjectileView> _enemyPool;
 
     private void Awake()
     {
-        if (_enemyPrefab == null)
+        if (_projectilePrefab == null)
         {
-            Debug.LogError("Enemy prefab is missing!", this);
+            Debug.LogError("Projectile prefab is missing!", this);
             return;
         }
 
-        _enemyPool = new ObjectPool<EnemyView>(
-            createFunc: () => Instantiate(_enemyPrefab, transform),
+        _enemyPool = new ObjectPool<ProjectileView>(
+            createFunc: () => Instantiate(_projectilePrefab, transform),
             actionOnGet: view => view.gameObject.SetActive(true),
             actionOnRelease: view =>
             {
@@ -32,7 +32,7 @@ public class EnemyPoolController : MonoBehaviour
         _enemyPool?.Dispose();
     }
 
-    public EnemyView Get()
+    public ProjectileView Get()
     {
         if (_enemyPool == null) return null;
 
@@ -40,10 +40,10 @@ public class EnemyPoolController : MonoBehaviour
         return view;
     }
 
-    public void Release(EnemyView enemy)
+    public void Release(ProjectileView view)
     {
         if (_enemyPool == null) return;
 
-        _enemyPool.Release(enemy);
+        _enemyPool.Release(view);
     }
 }

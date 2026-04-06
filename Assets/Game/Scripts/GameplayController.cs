@@ -1,5 +1,5 @@
+using System;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 public class GameplayController
@@ -9,22 +9,17 @@ public class GameplayController
 
     private readonly EnemyController _enemyController;
     private readonly InputController _inputController;
+    private readonly PlayerController _playerController;
+    private readonly BattleController _battleController;
+    private readonly InputReader _inputReader;
 
-    private readonly StringBuilder _currentInput;
-
-    private string[] Sentences = new string[]
+    public GameplayController(InputController inputController, PlayerController playerController, EnemyController enemyController, BattleController battleController, InputReader inputReader)
     {
-        "вес",
-        "веселье",
-        "ель",
-        "навес",
-    };
-
-    public GameplayController(InputController inputController, EnemyController enemyController)
-    {
-        _currentInput = new StringBuilder();
         _inputController = inputController;
+        _playerController = playerController;
         _enemyController = enemyController;
+        _battleController = battleController;
+        _inputReader = inputReader;
 
         Subscribe();
     }
@@ -32,19 +27,12 @@ public class GameplayController
     public void Start()
     {
         _inputController.Enable();
-        _currentInput.Clear();
+        _inputReader.Clear();
 
-        Spawn();
-    }
+        var character = new PlayerCharacter();
+        _playerController.Spawn(character);
 
-    public void Spawn()
-    {
-        for (int i = _enemyController.Enemies.Count; i < 25; i++)
-        {
-            var next = Random.Range(0, Sentences.Length - 1);
-            var enemy = new Enemy(_currentInput.Length, Sentences[next]);
-            _enemyController.Spawn(enemy);
-        }
+        _battleController.Spawn();
     }
 
     public void Subscribe()
@@ -63,14 +51,17 @@ public class GameplayController
     {
         TryTrimBuffer();
 
-        _currentInput.Append(inputtedChar);
+        _inputReader.Append(inputtedChar);
 
-        string currentBuffer = _currentInput.ToString();
+        string currentBuffer = _inputReader.ToString();
 
         var enemiesToShoot = _enemyController.Enemies
-            .Where(enemy =>
-                currentBuffer.IndexOf(enemy.Sentence, enemy.StartIndex) >= enemy.StartIndex)
-            .ToList();
+        .Where(enemy =>
+        {
+            int index = currentBuffer.IndexOf(enemy.Key.Sentence, enemy.Key.StartIndex);
+            return index >= enemy.Key.StartIndex && index > enemy.Key.LastMatchIndex;
+        })
+        .ToHashSet();
 
         if (enemiesToShoot.Count == 0)
         {
@@ -78,32 +69,32 @@ public class GameplayController
             return;
         }
 
+        var startShootPosition = _playerController.PlayerView.transform.position;
         foreach (var enemy in enemiesToShoot)
         {
-            Debug.Log($"Match: {enemy.Sentence}");
-            enemy.Damage(100f);
+            Debug.Log($"Match: {enemy.Key.Sentence}");
+            _battleController.Shoot(startShootPosition, enemy.Value);
+            enemy.Key.LastMatchIndex = _inputReader.LastIndex;
         }
-
-        Spawn();
     }
-
 
     private void TryTrimBuffer()
     {
-        if (_currentInput.Length <= MaxBufferSize) return;
+        var inputLength = _inputReader.InputLength;
+        if (inputLength <= MaxBufferSize) return;
 
-        int trimAmount = _currentInput.Length - TrimThreshold;
-        string newBuffer = _currentInput.ToString(trimAmount, TrimThreshold);
+        int trimAmount = inputLength - TrimThreshold;
+        string newBuffer = _inputReader.Trim(trimAmount, TrimThreshold);
 
-        _currentInput.Clear();
-        _currentInput.Append(newBuffer);
+        _inputReader.Clear();
+        _inputReader.Append(newBuffer);
 
         foreach (var enemy in _enemyController.Enemies)
         {
-            enemy.MoveIndex(trimAmount);
+            enemy.Key.MoveIndex(trimAmount);
         }
 
-        Debug.Log($"Buffer trimmed from {_currentInput.Length + trimAmount} to {TrimThreshold}");
+        Debug.Log($"Buffer trimmed from {inputLength + trimAmount} to {TrimThreshold}");
         Debug.Log($"Buffer: {newBuffer}");
     }
 }

@@ -9,6 +9,8 @@ public class Enemy
     public int StartIndex { get; private set; }
     public string Sentence { get; private set; }
 
+    public int LastMatchIndex = -1;
+
     public Enemy(int startIndex, string sentence)
     {
         StartIndex = startIndex;

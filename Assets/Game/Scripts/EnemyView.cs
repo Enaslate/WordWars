@@ -1,18 +1,17 @@
-using System;
 using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
-    [SerializeField] public Enemy _enemy;
+    [field: SerializeField] public Enemy Enemy { get; private set; }
 
     public void Setup(Vector3 position, Enemy enemy)
     {
         transform.position = position;
-        _enemy = enemy;
+        Enemy = enemy;
     }
 
     public void Reset()
     {
-        _enemy = null;
+        Enemy = null;
     }
 }

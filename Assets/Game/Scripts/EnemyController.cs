@@ -3,30 +3,33 @@ using UnityEngine;
 
 public class EnemyController
 {
-    private readonly EnemyPoolController _enemyPoolController;
+    private readonly EnemyPoolController _enemyPool;
 
-    private List<Enemy> _enemies = new();
-    public IReadOnlyList<Enemy> Enemies => _enemies;
+    private Dictionary<Enemy, EnemyView> _enemies = new();
+    public IReadOnlyDictionary<Enemy, EnemyView> Enemies => _enemies;
 
     public EnemyController(EnemyPoolController enemyPoolController)
     {
-        _enemyPoolController = enemyPoolController;
+        _enemyPool = enemyPoolController;
     }
 
     public void Spawn(Enemy enemy)
     {
-        var insideCircle = UnityEngine.Random.insideUnitCircle * 3;
+        var insideCircle = UnityEngine.Random.insideUnitCircle * 10;
 
         var position = new Vector3(insideCircle.x, insideCircle.y, 0);
-        _enemyPoolController.Spawn(enemy, position);
-        _enemies.Add(enemy);
-        enemy.Died += OnDied;
+        var view = _enemyPool.Get();
+        
+        view.Setup(position, enemy);
+        _enemies.Add(enemy, view);
     }
 
-    public void OnDied(Enemy enemy)
+    public void Despawn(Enemy enemy)
     {
-        enemy.Died -= OnDied;
-        _enemyPoolController.Despawn(enemy);
+        if (!_enemies.TryGetValue(enemy, out var view))
+            return;
+
         _enemies.Remove(enemy);
+        _enemyPool.Release(view);
     }
 }
