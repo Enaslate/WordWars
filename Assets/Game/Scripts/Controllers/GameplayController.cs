@@ -11,25 +11,29 @@ public class GameplayController
     private readonly PlayerController _playerController;
     private readonly BattleController _battleController;
     private readonly InputReader _inputReader;
+    private readonly GameScore _gameScore;
 
     public GameplayController(
         InputController inputController,
         PlayerController playerController,
         EnemyController enemyController,
         BattleController battleController,
-        InputReader inputReader)
+        InputReader inputReader,
+        GameScore gameScore)
     {
         _inputController = inputController;
         _playerController = playerController;
         _enemyController = enemyController;
         _battleController = battleController;
         _inputReader = inputReader;
-
-        Subscribe();
+        _gameScore = gameScore;
     }
 
     public void Start()
     {
+        Unsubscribe();
+        Subscribe();
+
         _inputController.Enable();
         _inputReader.Clear();
 
@@ -48,6 +52,8 @@ public class GameplayController
 
     public void Unsubscribe()
     {
+        if (_inputController == null) return;
+        
         _inputController.TextInputted -= OnTextInputted;
     }
 
@@ -55,35 +61,53 @@ public class GameplayController
     {
         TryTrimBuffer();
 
+        string oldBuffer = _inputReader.ToString();
         _inputReader.Append(inputtedChar);
-
         string currentBuffer = _inputReader.ToString();
 
-        var enemiesToShoot = _enemyController.Enemies
-        .Where(enemy =>
-        {
-            int index = currentBuffer.IndexOf(enemy.Key.Sentence, enemy.Key.StartIndex);
-            return index >= enemy.Key.StartIndex && index > enemy.Key.LastMatchIndex;
-        })
-        .ToHashSet();
-
+        bool anyProgress = false;
         foreach (var enemy in _enemyController.Enemies)
         {
+            int oldMatchLen = GetMatchLength(oldBuffer, enemy.Key.StartIndex, enemy.Key.Sentence);
+            int newMatchLen = GetMatchLength(currentBuffer, enemy.Key.StartIndex, enemy.Key.Sentence);
+            if (newMatchLen > oldMatchLen) anyProgress = true;
             enemy.Value.UpdateHighlight(currentBuffer);
         }
 
-        if (enemiesToShoot.Count == 0)
-        {
-            return;
-        }
+        if (anyProgress)
+            _gameScore.Correct();
+        else
+            _gameScore.Mistake();
 
-        var startShootPosition = _playerController.PlayerView.transform.position;
-        foreach (var enemy in enemiesToShoot)
+        var enemiesToShoot = _enemyController.Enemies
+            .Where(enemy =>
+            {
+                int index = currentBuffer.IndexOf(enemy.Key.Sentence, enemy.Key.StartIndex);
+                return index >= enemy.Key.StartIndex && index > enemy.Key.LastMatchIndex;
+            })
+            .ToHashSet();
+
+        if (enemiesToShoot.Count > 0)
         {
-            Debug.Log($"Match: {enemy.Key.Sentence}");
-            _battleController.Shoot(startShootPosition, enemy.Value);
-            enemy.Key.LastMatchIndex = _inputReader.LastIndex;
+            var startShootPosition = _playerController.PlayerView.transform.position;
+            foreach (var enemy in enemiesToShoot)
+            {
+                Debug.Log($"Match: {enemy.Key.Sentence}");
+                _battleController.Shoot(startShootPosition, enemy.Value);
+                enemy.Key.LastMatchIndex = _inputReader.LastIndex;
+            }
         }
+    }
+
+    private int GetMatchLength(string buffer, int startIndex, string word)
+    {
+        if (startIndex >= buffer.Length) return 0;
+        int maxLen = Mathf.Min(buffer.Length - startIndex, word.Length);
+
+        for (int i = 0; i < maxLen; i++)
+            if (buffer[startIndex + i] != word[i]) return i;
+
+        return maxLen;
     }
 
     private void TryTrimBuffer()

@@ -9,6 +9,7 @@ public class SentenceView : View
 
     private Transform _target;
     private string _sentence;
+    private bool _fullMatch = false;
 
     private void Awake()
     {
@@ -32,6 +33,8 @@ public class SentenceView : View
 
     public void UpdateHighlight(string buffer, int startIndex)
     {
+        if (_fullMatch) return;
+
         _tmpSentence.text = GetHighlighted(buffer, startIndex);
     }
 
@@ -65,6 +68,8 @@ public class SentenceView : View
 
         if (matchLen == 0)
             return _sentence;
+        else if (matchLen == _sentence.Length)
+            _fullMatch = true;
 
         string highlighted = "";
         for (int i = 0; i < _sentence.Length; i++)
@@ -95,5 +100,6 @@ public class SentenceView : View
         _target = null;
         _tmpSentence.text = string.Empty;
         _sentence = null;
+        _fullMatch = false;
     }
 }

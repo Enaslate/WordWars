@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[Serializable]
 public abstract class Character
 {
     public event Action<Character> Died;
