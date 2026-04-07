@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,6 +58,9 @@ public class InputController
 
     private void OnTextInputPressed(char inputChar)
     {
+        if (char.IsControl(inputChar))
+            return;
+
         TextInputted?.Invoke(inputChar);
         Debug.Log($"{inputChar}");
     }

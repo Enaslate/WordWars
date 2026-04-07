@@ -4,7 +4,8 @@ public class BattleController
 {
     private readonly EnemyController _enemyController;
     private readonly ProjectilePoolController _projectilePool;
-    private readonly InputReader _inputReader;
+    private readonly TextInputProcessor _inputProcessor;
+    private readonly GameScore _gameScore;
 
     private string[] Sentences = new string[]
     {
@@ -14,12 +15,13 @@ public class BattleController
         "навес",
     };
 
-    public BattleController(EnemyController enemyController, ProjectilePoolController projectilePool, InputReader inputReader)
+    public BattleController(EnemyController enemyController, ProjectilePoolController projectilePool, TextInputProcessor inputReader, GameScore gameScore)
     {
         _enemyController = enemyController;
         _projectilePool = projectilePool;
-        
-        _inputReader = inputReader;
+
+        _inputProcessor = inputReader;
+        _gameScore = gameScore;
     }
 
     public void Spawn()
@@ -27,7 +29,7 @@ public class BattleController
         for (int i = _enemyController.Enemies.Count; i < 3; i++)
         {
             var next = UnityEngine.Random.Range(0, Sentences.Length - 1);
-            var enemy = new Enemy(_inputReader.InputLength, Sentences[next]);
+            var enemy = new Enemy(_inputProcessor.InputLength, Sentences[next]);
             _enemyController.Spawn(enemy);
             enemy.Died += OnDied;
         }
@@ -44,6 +46,7 @@ public class BattleController
     public void OnDied(Character character)
     {
         character.Died -= OnDied;
+        _gameScore.OnEnemyKilled(1);
         _enemyController.Despawn(character as Enemy);
         Spawn();
     }

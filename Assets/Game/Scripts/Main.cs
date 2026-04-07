@@ -12,7 +12,7 @@ public class Main : MonoBehaviour
     private GameplayController _gameplayController;
     private EnemyController _enemyController;
     private BattleController _battleController;
-    private InputReader _inputReader;
+    private TextInputProcessor _inputProcessor;
 
     [Header("Score")]
     [SerializeField] private GameScore _gameScore;
@@ -22,8 +22,8 @@ public class Main : MonoBehaviour
         ConfigureInput();
 
         _enemyController = new EnemyController(_enemyPool, _sentencePool, _playerController);
-        _battleController = new BattleController(_enemyController, _projectilePool, _inputReader);
-        _gameplayController = new GameplayController(_inputController, _playerController, _enemyController, _battleController, _inputReader, _gameScore);
+        _battleController = new BattleController(_enemyController, _projectilePool, _inputProcessor, _gameScore);
+        _gameplayController = new GameplayController(_inputController, _playerController, _enemyController, _battleController, _inputProcessor, _gameScore);
     }
 
     private void Start()
@@ -35,7 +35,7 @@ public class Main : MonoBehaviour
     {
         _inputActions = new InputActions();
         _inputController = new InputController(_inputActions);
-        _inputReader = new InputReader();
+        _inputProcessor = new TextInputProcessor();
     }
 
     private void OnDestroy()

@@ -17,6 +17,8 @@ public class EnemyView : View
 
     public void UpdateHighlight(string buffer)
     {
+        if (SentenceView == null) return;
+
         SentenceView.UpdateHighlight(buffer, Enemy.StartIndex);
     }
 

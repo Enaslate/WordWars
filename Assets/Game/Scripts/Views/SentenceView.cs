@@ -41,30 +41,7 @@ public class SentenceView : View
     public string GetHighlighted(string buffer, int startIndex)
     {
         int maxLen = Mathf.Min(buffer.Length, _sentence.Length);
-        int matchLen = 0;
-
-        for (int len = maxLen; len > 0; len--)
-        {
-            int startPos = buffer.Length - len;
-
-            if (startPos < startIndex)
-                continue;
-
-            bool match = true;
-            for (int i = 0; i < len; i++)
-            {
-                if (buffer[startPos + i] != _sentence[i])
-                {
-                    match = false;
-                    break;
-                }
-            }
-            if (match)
-            {
-                matchLen = len;
-                break;
-            }
-        }
+        int matchLen = MatchHelper.GetMaxMatchLength(buffer, _sentence, startIndex);
 
         if (matchLen == 0)
             return _sentence;
