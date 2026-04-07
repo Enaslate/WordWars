@@ -2,7 +2,7 @@
 
 public class PlayerView : MonoBehaviour
 {
-    public PlayerCharacter Character;
+    [field: SerializeField] public PlayerCharacter Character { get; private set; }
 
     public void Setup(PlayerCharacter character)
     {

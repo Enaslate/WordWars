@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,10 +13,13 @@ public class PlayerController : MonoBehaviour
             PlayerView = Instantiate(_viewPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
 
         PlayerView.Setup(character);
+        PlayerView.Character.Died += OnDied;
     }
 
-    public void Shoot(EnemyView enemy)
+    private void OnDied(Character character)
     {
-        
+        PlayerView.Character.Died -= OnDied;
+        Time.timeScale = 0;
+        Debug.Log("Game over!");
     }
 }
