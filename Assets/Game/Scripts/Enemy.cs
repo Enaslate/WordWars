@@ -26,9 +26,10 @@ public class Enemy
             Die();
     }
 
-    public void MoveIndex(int delta)
+    public void MoveIndexes(int delta)
     {
         StartIndex = Math.Max(0, StartIndex - delta);
+        LastMatchIndex = Math.Max(0, LastMatchIndex - delta);
     }
 
     private void Die()

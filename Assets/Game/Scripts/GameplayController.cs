@@ -91,7 +91,7 @@ public class GameplayController
 
         foreach (var enemy in _enemyController.Enemies)
         {
-            enemy.Key.MoveIndex(trimAmount);
+            enemy.Key.MoveIndexes(trimAmount);
         }
 
         Debug.Log($"Buffer trimmed from {inputLength + trimAmount} to {TrimThreshold}");
