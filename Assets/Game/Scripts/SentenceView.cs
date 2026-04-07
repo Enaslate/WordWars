@@ -21,11 +21,13 @@ public class SentenceView : View
         _sentence = sentence;
         _tmpSentence.text = _sentence;
 
-        if (target != null && _camera != null)
+        if (target == null && _camera == null)
         {
-            var position = _camera.WorldToScreenPoint(target.position);
-            transform.position = position;
+            Debug.LogError($"Target or camera is null");
+            return;
         }
+
+        UpdatePosition();
     }
 
     public void UpdateHighlight(string buffer, int startIndex)
@@ -75,8 +77,22 @@ public class SentenceView : View
         return highlighted;
     }
 
+    private void Update()
+    {
+        if (_target == null) return;
+
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
+        var position = _camera.WorldToScreenPoint(_target.position);
+        transform.position = position + _offset;
+    }
+
     public override void Reset()
     {
+        _target = null;
         _tmpSentence.text = string.Empty;
         _sentence = null;
     }

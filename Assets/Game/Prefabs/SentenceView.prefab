@@ -58,8 +58,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6447235873de3a4495fc618f09e9a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SentenceView
+  _camera: {fileID: 0}
   _tmpSentence: {fileID: 8099078074787347457}
-  _offset: {x: 0, y: 1, z: 0}
+  _offset: {x: 0, y: 30, z: 0}
 --- !u!114 &8099078074787347457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +115,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1

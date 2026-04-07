@@ -27,12 +27,12 @@ public class ProjectileView : View
             return;
         }
 
-        Vector3 direction = _targetTransform.position - transform.position;
-        float step = _speed * Time.deltaTime;
+        var direction = _targetTransform.position - transform.position;
+        var step = _speed * Time.deltaTime;
 
         if (direction.magnitude <= _stopDistance)
         {
-            _targetEnemy?.Damage(_damage);
+            _targetEnemy?.TakeDamage(_damage);
             ReturnToPool();
         }
         else

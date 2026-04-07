@@ -24,7 +24,7 @@ public class BattleController
 
     public void Spawn()
     {
-        for (int i = _enemyController.Enemies.Count; i < 25; i++)
+        for (int i = _enemyController.Enemies.Count; i < 3; i++)
         {
             var next = UnityEngine.Random.Range(0, Sentences.Length - 1);
             var enemy = new Enemy(_inputReader.InputLength, Sentences[next]);
@@ -41,10 +41,10 @@ public class BattleController
         if (projectileView == null) return;
     }
 
-    public void OnDied(Enemy enemy)
+    public void OnDied(Character character)
     {
-        enemy.Died -= OnDied;
-        _enemyController.Despawn(enemy);
+        character.Died -= OnDied;
+        _enemyController.Despawn(character as Enemy);
         Spawn();
     }
 }

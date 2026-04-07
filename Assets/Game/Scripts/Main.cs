@@ -18,7 +18,7 @@ public class Main : MonoBehaviour
     {
         ConfigureInput();
 
-        _enemyController = new EnemyController(_enemyPool, _sentencePool);
+        _enemyController = new EnemyController(_enemyPool, _sentencePool, _playerController);
         _battleController = new BattleController(_enemyController, _projectilePool, _inputReader);
         _gameplayController = new GameplayController(_inputController, _playerController, _enemyController, _battleController, _inputReader);
     }

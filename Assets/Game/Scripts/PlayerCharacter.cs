@@ -1,3 +1,7 @@
-﻿public class PlayerCharacter
+﻿using System;
+
+[Serializable]
+public class PlayerCharacter : Character
 {
+
 }
