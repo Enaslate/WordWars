@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -13,7 +12,12 @@ public class GameplayController
     private readonly BattleController _battleController;
     private readonly InputReader _inputReader;
 
-    public GameplayController(InputController inputController, PlayerController playerController, EnemyController enemyController, BattleController battleController, InputReader inputReader)
+    public GameplayController(
+        InputController inputController,
+        PlayerController playerController,
+        EnemyController enemyController,
+        BattleController battleController,
+        InputReader inputReader)
     {
         _inputController = inputController;
         _playerController = playerController;
@@ -63,9 +67,13 @@ public class GameplayController
         })
         .ToHashSet();
 
+        foreach (var enemy in _enemyController.Enemies)
+        {
+            enemy.Value.UpdateHighlight(currentBuffer);
+        }
+
         if (enemiesToShoot.Count == 0)
         {
-            Debug.Log($"No matches");
             return;
         }
 

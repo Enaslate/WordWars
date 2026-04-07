@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleController
@@ -19,6 +18,7 @@ public class BattleController
     {
         _enemyController = enemyController;
         _projectilePool = projectilePool;
+        
         _inputReader = inputReader;
     }
 

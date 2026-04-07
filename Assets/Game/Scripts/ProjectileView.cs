@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ProjectileView : MonoBehaviour
+public class ProjectileView : View
 {
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _stopDistance = 0.1f;
@@ -46,7 +46,7 @@ public class ProjectileView : MonoBehaviour
         _pool?.Release(this);
     }
 
-    public void Reset()
+    public override void Reset()
     {
         _targetTransform = null;
         _targetEnemy = null;

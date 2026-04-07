@@ -5,6 +5,7 @@ public class Main : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private EnemyPoolController _enemyPool;
     [SerializeField] private ProjectilePoolController _projectilePool;
+    [SerializeField] private SentencePoolController _sentencePool;
 
     private InputActions _inputActions;
     private InputController _inputController;
@@ -17,7 +18,7 @@ public class Main : MonoBehaviour
     {
         ConfigureInput();
 
-        _enemyController = new EnemyController(_enemyPool);
+        _enemyController = new EnemyController(_enemyPool, _sentencePool);
         _battleController = new BattleController(_enemyController, _projectilePool, _inputReader);
         _gameplayController = new GameplayController(_inputController, _playerController, _enemyController, _battleController, _inputReader);
     }
