@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 267584690768645108}
   - component: {fileID: 5807126445907980010}
-  - component: {fileID: 1777186325656484806}
+  - component: {fileID: 5740092098221267526}
   - component: {fileID: 8099078074787347457}
   m_Layer: 5
   m_Name: SentenceView
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765414154594819224}
   m_CullTransparentMesh: 1
---- !u!114 &1777186325656484806
+--- !u!114 &5740092098221267526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1765414154594819224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6447235873de3a4495fc618f09e9a7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 89290aff91193214ea429f10d711236a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SentenceView
   _camera: {fileID: 0}

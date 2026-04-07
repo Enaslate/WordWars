@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8470663984489846207}
   - component: {fileID: 3521848584552021257}
   - component: {fileID: 5888994825939699122}
-  - component: {fileID: 3900507848220151532}
+  - component: {fileID: 5462819205281431336}
   m_Layer: 0
   m_Name: PlayerView
   m_TagString: Untagged
@@ -113,7 +113,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3900507848220151532
+--- !u!114 &5462819205281431336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4274540811354807023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53e27a6039d08645be7729948d5fb87, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d94a2f395a1e5d4a83fc20e9ba984d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
+  <Character>k__BackingField:
+    <MaxHealth>k__BackingField: 3
+    <Health>k__BackingField: 3

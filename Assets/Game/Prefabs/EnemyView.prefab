@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8470663984489846207}
   - component: {fileID: 3521848584552021257}
   - component: {fileID: 5888994825939699122}
-  - component: {fileID: -4628758707627649078}
+  - component: {fileID: 9162540967687859314}
   m_Layer: 0
   m_Name: EnemyView
   m_TagString: Untagged
@@ -113,7 +113,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4628758707627649078
+--- !u!114 &9162540967687859314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,6 +122,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4274540811354807023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2765f9bce24d894488d7bcc58787625, type: 3}
+  m_Script: {fileID: 11500000, guid: 713f51e1b8b3abe46a10147613b19b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyView
+  <SentenceView>k__BackingField: {fileID: 0}
+  <Enemy>k__BackingField:
+    <MaxHealth>k__BackingField: 0
+    <Health>k__BackingField: 0
+    <Sentence>k__BackingField: 
+    <Speed>k__BackingField: 0
+    <AttackRadius>k__BackingField: 0
+    <Damage>k__BackingField: 0
+    LastMatchIndex: 0
+  _target: {fileID: 0}

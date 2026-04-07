@@ -5,7 +5,7 @@ public class SentenceView : View
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private TMP_Text _tmpSentence;
-    [SerializeField] private Vector3 _offset;
+    [SerializeField] private Vector3 _offset = new Vector3(0, 30, 0);
 
     private Transform _target;
     private string _sentence;

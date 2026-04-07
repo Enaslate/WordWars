@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 587877996518466939}
   - component: {fileID: 4883666285997913758}
   - component: {fileID: 1040145506888978904}
-  - component: {fileID: 3262097595339677514}
+  - component: {fileID: 7819942966091982268}
   m_Layer: 0
   m_Name: ProjectileView
   m_TagString: Untagged
@@ -113,7 +113,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3262097595339677514
+--- !u!114 &7819942966091982268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,6 +122,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6000860992582916808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7847b509d7d5f9e4b87ee215e20d24c6, type: 3}
+  m_Script: {fileID: 11500000, guid: abd8bcecd9b65ff4aae5696627bd636b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileView
+  _speed: 5
+  _stopDistance: 0.1

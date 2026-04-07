@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Main
   _playerController: {fileID: 1434296153}
   _enemyPool: {fileID: 1657872663}
-  _projectilePool: {fileID: 1614713714}
+  _projectilePool: {fileID: 1614713713}
   _sentencePool: {fileID: 2114871855}
 --- !u!4 &257820564
 Transform:
@@ -702,10 +702,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1434296151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59474e9a8e6094e47874303fac624947, type: 3}
+  m_Script: {fileID: 11500000, guid: a7cc162c519368648acf34f34042c1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _viewPrefab: {fileID: 3900507848220151532, guid: e1c58d7ebc7ab6343a7c82c9fbc45561, type: 3}
+  _viewPrefab: {fileID: 5462819205281431336, guid: e1c58d7ebc7ab6343a7c82c9fbc45561, type: 3}
 --- !u!1 &1614713711
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1614713712}
-  - component: {fileID: 1614713714}
+  - component: {fileID: 1614713713}
   m_Layer: 0
   m_Name: BattleController
   m_TagString: Untagged
@@ -738,7 +738,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1614713714
+--- !u!114 &1614713713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,10 +747,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1614713711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f18e4873eb689e04ea295fedd2cf66af, type: 3}
+  m_Script: {fileID: 11500000, guid: d7cd1852045ec6d4480ed2403a29e97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectilePoolController
-  _prefab: {fileID: 3262097595339677514, guid: c7b7179514c7cc640ba1fbe2d6c91bdb, type: 3}
+  _prefab: {fileID: 7819942966091982268, guid: c7b7179514c7cc640ba1fbe2d6c91bdb, type: 3}
   _defaultCapacity: 10
   _maxSize: 100
 --- !u!1 &1657872661
@@ -794,10 +794,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1657872661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f62b8cbce17164da94f85aefac2861, type: 3}
+  m_Script: {fileID: 11500000, guid: c528008ff4da850438a9a69c78a867a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolController
-  _prefab: {fileID: -4628758707627649078, guid: 75c6560888d83834fa7dd9c700bde1fc, type: 3}
+  _prefab: {fileID: 9162540967687859314, guid: 75c6560888d83834fa7dd9c700bde1fc, type: 3}
   _defaultCapacity: 10
   _maxSize: 100
 --- !u!1 &2114871853
@@ -845,10 +845,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2114871853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cf5f98033a58084b9c06155f18ce73d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f69b492172661749af24ef2ad02a1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SentencePoolController
-  _prefab: {fileID: 1777186325656484806, guid: 4b7663042931aea44843407eb1d155b8, type: 3}
+  _prefab: {fileID: 5740092098221267526, guid: 4b7663042931aea44843407eb1d155b8, type: 3}
   _defaultCapacity: 10
   _maxSize: 100
 --- !u!1660057539 &9223372036854775807
