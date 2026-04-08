@@ -4,16 +4,22 @@ public class BattleController
 {
     private readonly EnemyController _enemyController;
     private readonly ProjectilePoolController _projectilePool;
+    private readonly VfxPoolController _vfxPool;
     private readonly TextInputProcessor _inputProcessor;
     private readonly GameScoreController _gameScoreController;
 
-    public BattleController(EnemyController enemyController, ProjectilePoolController projectilePool, TextInputProcessor inputReader, GameScoreController gameScoreController)
+    public BattleController(EnemyController enemyController,
+        ProjectilePoolController projectilePool,
+        TextInputProcessor inputReader,
+        GameScoreController gameScoreController,
+        VfxPoolController vfxPool)
     {
         _enemyController = enemyController;
         _projectilePool = projectilePool;
 
         _inputProcessor = inputReader;
         _gameScoreController = gameScoreController;
+        _vfxPool = vfxPool;
     }
 
     public void Spawn()
@@ -40,6 +46,10 @@ public class BattleController
         character.Died -= OnDied;
 
         if (character is not Enemy enemy) return;
+
+        var explosion = _vfxPool.Get();
+        _enemyController.Enemies.TryGetValue(enemy, out var enemyView);
+        explosion.transform.position = enemyView.transform.position;
 
         if (!enemy.IsSuicideAttack)
             _gameScoreController.Score.OnEnemyKilled(10);

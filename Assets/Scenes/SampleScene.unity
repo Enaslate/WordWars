@@ -563,6 +563,7 @@ MonoBehaviour:
   _enemyPool: {fileID: 1657872663}
   _projectilePool: {fileID: 1614713713}
   _sentencePool: {fileID: 1047225308}
+  _vfxPool: {fileID: 346882291}
   _gameScoreView: {fileID: 919933635}
   _gameScore:
     Multiplier: 1
@@ -1090,6 +1091,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337996850}
   m_CullTransparentMesh: 1
+--- !u!1 &346882289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346882290}
+  - component: {fileID: 346882291}
+  m_Layer: 0
+  m_Name: VfxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &346882290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346882289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.07501, y: 0, z: 0.45923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &346882291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346882289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b76f109a7a15ce40b26595433b15ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VfxPoolController
+  _container: {fileID: 346882290}
+  _prefab: {fileID: -4176360969614610931, guid: c5a4db339275d864185e753b4389b441, type: 3}
+  _defaultCapacity: 10
+  _maxSize: 100
 --- !u!1 &399962142
 GameObject:
   m_ObjectHideFlags: 0
@@ -5072,5 +5121,6 @@ SceneRoots:
   - {fileID: 1657872662}
   - {fileID: 1434296152}
   - {fileID: 1614713712}
+  - {fileID: 346882290}
   - {fileID: 481163618}
   - {fileID: 956568457}
