@@ -52,6 +52,9 @@ public class BattleController
 
         var explosion = _vfxPool.Get();
         _enemyController.Enemies.TryGetValue(enemy, out var enemyView);
+
+        if (enemyView == null) return;
+
         var position = enemyView.transform.position;
         explosion.transform.position = position;
         _audioController.PlayExplosion(position);

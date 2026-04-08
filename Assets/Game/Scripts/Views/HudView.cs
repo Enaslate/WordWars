@@ -26,6 +26,7 @@ public class HudView : MonoBehaviour
 
     private void OnDestroy()
     {
-        _player.TakedDamage -= OnTakedDamage;
+        if (_player != null)
+            _player.TakedDamage -= OnTakedDamage;
     }
 }

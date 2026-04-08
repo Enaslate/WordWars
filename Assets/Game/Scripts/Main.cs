@@ -12,6 +12,11 @@ public class Main : MonoBehaviour
     [SerializeField] private AudioController _audioController;
     [SerializeField] private HudView _hudView;
 
+    [Header("Hud")]
+    [SerializeField] private Transform _score;
+    [SerializeField] private Transform _health;
+    [SerializeField] private Transform _mainMenu;
+
     private InputActions _inputActions;
     private InputController _inputController;
     private GameplayController _gameplayController;
@@ -36,11 +41,15 @@ public class Main : MonoBehaviour
 
     private void Start()
     {
-        StartGameplay();
+        ToMainMenu();
     }
 
-    private void StartGameplay()
+    public void StartGameplay()
     {
+        _mainMenu.gameObject.SetActive(false);
+        _score.gameObject.SetActive(true);
+        _health.gameObject.SetActive(true);
+
         _gameplayController.Start();
         var character = _playerController?.PlayerView?.Character;
         if (character == null)
@@ -49,6 +58,15 @@ public class Main : MonoBehaviour
         }
         _hudView.Setup(character);
         character.Died += OnGameOver;
+    }
+
+    public void ToMainMenu()
+    {
+        _gameScore.Reset();
+        _gameScoreController.Hide();
+        _mainMenu.gameObject.SetActive(true);
+        _score.gameObject.SetActive(false);
+        _health.gameObject.SetActive(false);
     }
 
     private void ConfigureGameScore()
@@ -69,7 +87,6 @@ public class Main : MonoBehaviour
     {
         _gameScore.Reset();
         _gameScoreController.Hide();
-        Time.timeScale = 1.0f;
         _playerController.Respawn();
         _inputController.Enable();
         StartGameplay();
@@ -85,12 +102,22 @@ public class Main : MonoBehaviour
     {
         if (character is not PlayerCharacter) return;
 
+        GameOver();
+    }
+
+    private void GameOver()
+    {
+        _audioController.PlayExplosion(_playerController.transform.position);
         _inputController.Disable();
         _enemyController.DespawnAll();
         _playerController.PlayerView.Character.Died -= OnGameOver;
-        Time.timeScale = 0;
         _gameScoreController.Show();
         Debug.Log("Game over!");
+    }
+
+    public void CloseApp()
+    {
+        Application.Quit();
     }
 
     private void OnDestroy()
