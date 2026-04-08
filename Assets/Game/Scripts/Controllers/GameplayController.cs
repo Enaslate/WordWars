@@ -9,6 +9,7 @@ public class GameplayController
     private readonly BattleController _battleController;
     private readonly TextInputProcessor _inputProcessor;
     private readonly GameScoreController _gameScoreController;
+    private readonly AudioController _audioController;
 
     public GameplayController(
         InputController inputController,
@@ -16,7 +17,8 @@ public class GameplayController
         EnemyController enemyController,
         BattleController battleController,
         TextInputProcessor inputReader,
-        GameScoreController gameScoreController)
+        GameScoreController gameScoreController,
+        AudioController audioController)
     {
         _inputController = inputController;
         _playerController = playerController;
@@ -24,6 +26,7 @@ public class GameplayController
         _battleController = battleController;
         _inputProcessor = inputReader;
         _gameScoreController = gameScoreController;
+        _audioController = audioController;
     }
 
     public void Start()
@@ -56,6 +59,7 @@ public class GameplayController
 
     private void OnTextInputted(char inputtedChar)
     {
+        _audioController.PlayClick();
         var enemies = _enemyController.Enemies;
         var enemiesToShoot = _inputProcessor.Process(inputtedChar, enemies, _gameScoreController.Score);
 

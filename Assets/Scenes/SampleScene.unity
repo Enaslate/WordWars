@@ -564,6 +564,8 @@ MonoBehaviour:
   _projectilePool: {fileID: 1614713713}
   _sentencePool: {fileID: 1047225308}
   _vfxPool: {fileID: 346882291}
+  _sfxPool: {fileID: 1944080043}
+  _audioController: {fileID: 1944080044}
   _gameScoreView: {fileID: 919933635}
   _gameScore:
     Multiplier: 1
@@ -4938,6 +4940,73 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1944080040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1944080042}
+  - component: {fileID: 1944080043}
+  - component: {fileID: 1944080044}
+  m_Layer: 0
+  m_Name: SfxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1944080042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944080040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.07501, y: 0, z: 0.45923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1944080043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944080040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a29682ad423a24daaf002ae1d7b132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SfxPoolController
+  _container: {fileID: 1944080042}
+  _prefab: {fileID: 3511610586141454825, guid: e1c6f6c1796214344bd07428235a87ca, type: 3}
+  _defaultCapacity: 10
+  _maxSize: 100
+--- !u!114 &1944080044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944080040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482942ed151ed8646926071b1c9412e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioController
+  _sfxPool: {fileID: 1944080043}
+  _explosion: {fileID: 8300000, guid: 8ccf63921989e1d4a87e5c71a0bdd29e, type: 3}
+  _clicks:
+  - {fileID: 8300000, guid: fed7d91817d6bfa4aab857ffa60a0ec3, type: 3}
+  - {fileID: 8300000, guid: f12ff09421a376848a3fd307b3ae48b3, type: 3}
+  - {fileID: 8300000, guid: 4d04984df36fd7e449961924f8c5f73b, type: 3}
 --- !u!1 &2007000704
 GameObject:
   m_ObjectHideFlags: 0
@@ -5122,5 +5191,6 @@ SceneRoots:
   - {fileID: 1434296152}
   - {fileID: 1614713712}
   - {fileID: 346882290}
+  - {fileID: 1944080042}
   - {fileID: 481163618}
   - {fileID: 956568457}

@@ -8,6 +8,8 @@ public class Main : MonoBehaviour
     [SerializeField] private ProjectilePoolController _projectilePool;
     [SerializeField] private SentencePoolController _sentencePool;
     [SerializeField] private VfxPoolController _vfxPool;
+    [SerializeField] private SfxPoolController _sfxPool;
+    [SerializeField] private AudioController _audioController;
 
     private InputActions _inputActions;
     private InputController _inputController;
@@ -27,8 +29,8 @@ public class Main : MonoBehaviour
         ConfigureGameScore();
 
         _enemyController = new EnemyController(_enemyPool, _sentencePool, _playerController);
-        _battleController = new BattleController(_enemyController, _projectilePool, _inputProcessor, _gameScoreController, _vfxPool);
-        _gameplayController = new GameplayController(_inputController, _playerController, _enemyController, _battleController, _inputProcessor, _gameScoreController);
+        _battleController = new BattleController(_enemyController, _projectilePool, _inputProcessor, _gameScoreController, _vfxPool, _audioController);
+        _gameplayController = new GameplayController(_inputController, _playerController, _enemyController, _battleController, _inputProcessor, _gameScoreController, _audioController);
     }
 
     private void Start()

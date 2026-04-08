@@ -7,12 +7,14 @@ public class BattleController
     private readonly VfxPoolController _vfxPool;
     private readonly TextInputProcessor _inputProcessor;
     private readonly GameScoreController _gameScoreController;
+    private readonly AudioController _audioController;
 
     public BattleController(EnemyController enemyController,
         ProjectilePoolController projectilePool,
         TextInputProcessor inputReader,
         GameScoreController gameScoreController,
-        VfxPoolController vfxPool)
+        VfxPoolController vfxPool,
+        AudioController audioController)
     {
         _enemyController = enemyController;
         _projectilePool = projectilePool;
@@ -20,6 +22,7 @@ public class BattleController
         _inputProcessor = inputReader;
         _gameScoreController = gameScoreController;
         _vfxPool = vfxPool;
+        _audioController = audioController;
     }
 
     public void Spawn()
@@ -49,7 +52,9 @@ public class BattleController
 
         var explosion = _vfxPool.Get();
         _enemyController.Enemies.TryGetValue(enemy, out var enemyView);
-        explosion.transform.position = enemyView.transform.position;
+        var position = enemyView.transform.position;
+        explosion.transform.position = position;
+        _audioController.PlayExplosion(position);
 
         if (!enemy.IsSuicideAttack)
             _gameScoreController.Score.OnEnemyKilled(10);
