@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.XInput;
 
 public class Main : MonoBehaviour
 {

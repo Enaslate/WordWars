@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -173,3 +174,4 @@ public class TextInputProcessorTests
         Assert.AreEqual(1, _score.BestStreak);
     }
 }
+#endif

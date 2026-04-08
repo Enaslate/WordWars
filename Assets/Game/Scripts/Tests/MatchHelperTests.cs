@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using NUnit.Framework;
 using System.Collections.Generic;
 
@@ -51,3 +52,4 @@ public class MatchHelperTests
         Assert.AreEqual(2, len);
     }
 }
+#endif

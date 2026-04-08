@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using NUnit.Framework;
 
 public class GameScoreTests
@@ -60,3 +61,4 @@ public class GameScoreTests
         Assert.AreEqual(100f, score.Accuracy);
     }
 }
+#endif
