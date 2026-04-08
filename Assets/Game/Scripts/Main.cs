@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
     [SerializeField] private VfxPoolController _vfxPool;
     [SerializeField] private SfxPoolController _sfxPool;
     [SerializeField] private AudioController _audioController;
+    [SerializeField] private HudView _hudView;
 
     private InputActions _inputActions;
     private InputController _inputController;
@@ -41,11 +42,13 @@ public class Main : MonoBehaviour
     private void StartGameplay()
     {
         _gameplayController.Start();
-        if (_playerController?.PlayerView?.Character == null)
+        var character = _playerController?.PlayerView?.Character;
+        if (character == null)
         {
             Debug.LogError($"Player character is null!");
         }
-        _playerController.PlayerView.Character.Died += OnGameOver;
+        _hudView.Setup(character);
+        character.Died += OnGameOver;
     }
 
     private void ConfigureGameScore()

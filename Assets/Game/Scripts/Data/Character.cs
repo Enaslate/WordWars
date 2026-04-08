@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Character
 {
     public event Action<Character> Died;
+    public event Action TakedDamage;
 
     [field: SerializeField] public float MaxHealth { get; private set; } = 3f;
     [field: SerializeField] public float Health { get; private set; }
@@ -20,6 +21,8 @@ public abstract class Character
 
         if (Health <= 0)
             Die();
+
+        TakedDamage?.Invoke();
     }
 
     public void Die()

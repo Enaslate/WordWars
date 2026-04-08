@@ -58,4 +58,9 @@ public class GameScoreView : MonoBehaviour
     {
         _window.gameObject?.SetActive(false);
     }
+
+    private void OnDestroy()
+    {
+        _gameScore.Updated -= OnUpdated;
+    }
 }
