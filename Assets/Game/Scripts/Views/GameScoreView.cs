@@ -17,17 +17,27 @@ public class GameScoreView : MonoBehaviour
     [SerializeField] private TMP_Text _accuracyValue;
     [SerializeField] private TMP_Text _wordPerMinuteValue;
 
+    [SerializeField] private TMP_Text _currentScoreValue;
+
     private GameScore _gameScore;
 
     public void Setup(GameScore gameScore)
     {
         _gameScore = gameScore;
         SetValues(_gameScore);
+
+        _gameScore.Updated += OnUpdated;
+    }
+
+    private void OnUpdated()
+    {
+        _currentScoreValue.text = _gameScore.Score.ToString("N0");
     }
 
     public void SetValues(GameScore gameScore)
     {
         _scoreValue.text = _gameScore.Score.ToString("N0");
+        _currentScoreValue.text = _gameScore.Score.ToString("N0");
         _bestStreakValue.text = _gameScore.BestStreak.ToString("N0");
         _errorCountValue.text = _gameScore.ErrorCount.ToString("N0");
         _totalCharTypedValue.text = _gameScore.TotalCharsTyped.ToString("N0");

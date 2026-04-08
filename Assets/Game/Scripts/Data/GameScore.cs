@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public class GameScore
 {
+    public event Action Updated;
+
     public float Multiplier = 1f;
 
     public int Score = 0;
@@ -45,6 +47,7 @@ public class GameScore
         int points = Mathf.RoundToInt(basePoints * Multiplier);
         Score += points;
         EnemiesKilled++;
+        Updated?.Invoke();
     }
 
     public void UpdateGameScore(float delta)
@@ -72,5 +75,6 @@ public class GameScore
         TotalCharsAttempted = 0;
         EnemiesKilled = 0;
         GameTimeSeconds = 0f;
+        Updated?.Invoke();
     }
 }
