@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController
@@ -35,8 +36,16 @@ public class EnemyController
         if (!_enemies.TryGetValue(enemy, out var view))
             return;
 
-        _enemies.Remove(enemy);
         _sentencePool.Release(view.SentenceView);
         _enemyPool.Release(view);
+        _enemies.Remove(enemy);
+    }
+
+    public void DespawnAll()
+    {
+        foreach (var enemy in _enemies.Keys.ToList())
+        {
+            Despawn(enemy);
+        }
     }
 }

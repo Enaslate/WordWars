@@ -5,31 +5,23 @@ public class BattleController
     private readonly EnemyController _enemyController;
     private readonly ProjectilePoolController _projectilePool;
     private readonly TextInputProcessor _inputProcessor;
-    private readonly GameScore _gameScore;
+    private readonly GameScoreController _gameScoreController;
 
-    private string[] Sentences = new string[]
-    {
-        "вес",
-        "веселье",
-        "ель",
-        "навес",
-    };
-
-    public BattleController(EnemyController enemyController, ProjectilePoolController projectilePool, TextInputProcessor inputReader, GameScore gameScore)
+    public BattleController(EnemyController enemyController, ProjectilePoolController projectilePool, TextInputProcessor inputReader, GameScoreController gameScoreController)
     {
         _enemyController = enemyController;
         _projectilePool = projectilePool;
 
         _inputProcessor = inputReader;
-        _gameScore = gameScore;
+        _gameScoreController = gameScoreController;
     }
 
     public void Spawn()
     {
         for (int i = _enemyController.Enemies.Count; i < 3; i++)
         {
-            var next = UnityEngine.Random.Range(0, Sentences.Length - 1);
-            var enemy = new Enemy(_inputProcessor.InputLength, Sentences[next]);
+            var next = UnityEngine.Random.Range(0, SentenceStorageHelper.Sentences.Length - 1);
+            var enemy = new Enemy(_inputProcessor.InputLength, SentenceStorageHelper.Sentences[next]);
             _enemyController.Spawn(enemy);
             enemy.Died += OnDied;
         }
@@ -46,8 +38,13 @@ public class BattleController
     public void OnDied(Character character)
     {
         character.Died -= OnDied;
-        _gameScore.OnEnemyKilled(1);
-        _enemyController.Despawn(character as Enemy);
+
+        if (character is not Enemy enemy) return;
+
+        if (!enemy.IsSuicideAttack)
+            _gameScoreController.Score.OnEnemyKilled(10);
+
+        _enemyController.Despawn(enemy);
         Spawn();
     }
 }

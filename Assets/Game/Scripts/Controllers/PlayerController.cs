@@ -13,13 +13,11 @@ public class PlayerController : MonoBehaviour
             PlayerView = Instantiate(_viewPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
 
         PlayerView.Setup(character);
-        PlayerView.Character.Died += OnDied;
     }
 
-    private void OnDied(Character character)
+    public void Respawn()
     {
-        PlayerView.Character.Died -= OnDied;
-        Time.timeScale = 0;
-        Debug.Log("Game over!");
+        var character = new PlayerCharacter();
+        Spawn(character);
     }
 }

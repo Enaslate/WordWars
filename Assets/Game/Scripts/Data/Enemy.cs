@@ -9,6 +9,8 @@ public class Enemy : Character
     [field: SerializeField] public float AttackRadius { get; private set; } = 1f;
     [field: SerializeField] public float Damage { get; private set; } = 1f;
 
+    public bool IsSuicideAttack;
+
     public int StartIndex { get; private set; }
     public int LastMatchIndex = -1;
 

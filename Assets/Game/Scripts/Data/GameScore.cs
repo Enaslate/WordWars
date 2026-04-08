@@ -18,7 +18,7 @@ public class GameScore
     public float Accuracy => TotalCharsAttempted == 0 ? 100f :
         (float)TotalCharsTyped / TotalCharsAttempted * 100f;
 
-    public float WPM => (TotalCharsTyped / 5f) / (GameTimeSeconds / 60f);
+    public float WPM => GameTimeSeconds > 0 ? (TotalCharsTyped / 5f) / (GameTimeSeconds / 60f) : 0f;
 
     public void CorrectWord(int count)
     {
@@ -47,11 +47,30 @@ public class GameScore
         EnemiesKilled++;
     }
 
+    public void UpdateGameScore(float delta)
+    {
+        GameTimeSeconds += delta;
+    }
+
     private float GetMultiplier()
     {
         if (CurrentStreak <= 1)
             return 1;
 
         return 1 + (CurrentStreak / Accuracy * 10);
+    }
+
+    public void Reset()
+    {
+        Multiplier = 1f;
+
+        Score = 0;
+        BestStreak = 0;
+        CurrentStreak = 0;
+        ErrorCount = 0;
+        TotalCharsTyped = 0;
+        TotalCharsAttempted = 0;
+        EnemiesKilled = 0;
+        GameTimeSeconds = 0f;
     }
 }

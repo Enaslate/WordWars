@@ -31,8 +31,9 @@ public class EnemyView : View
 
         if (direction.magnitude <= Enemy.AttackRadius)
         {
+            Enemy.IsSuicideAttack = true;
             _target.Character.TakeDamage(Enemy.Damage);
-            Enemy.Die();
+            Enemy?.Die();
         }
         else
         {
@@ -43,6 +44,7 @@ public class EnemyView : View
     public override void Reset()
     {
         Enemy = null;
+        _target = null;
         SentenceView.Reset();
         SentenceView = null;
     }
