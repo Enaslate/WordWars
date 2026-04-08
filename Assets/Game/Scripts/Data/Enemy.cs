@@ -14,10 +14,11 @@ public class Enemy : Character
     public int StartIndex { get; private set; }
     public int LastMatchIndex = -1;
 
-    public Enemy(int startIndex, string sentence)
+    public Enemy(int startIndex, string sentence, float speed)
     {
         StartIndex = startIndex;
         Sentence = sentence;
+        Speed = speed;
     }
 
     public void MoveIndexes(int delta)

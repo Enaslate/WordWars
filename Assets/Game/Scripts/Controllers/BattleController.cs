@@ -27,10 +27,11 @@ public class BattleController
 
     public void Spawn()
     {
+        var speed = GetSpeedModifier();
         for (int i = _enemyController.Enemies.Count; i < 3; i++)
         {
             var next = UnityEngine.Random.Range(0, SentenceStorageHelper.Sentences.Length - 1);
-            var enemy = new Enemy(_inputProcessor.InputLength, SentenceStorageHelper.Sentences[next]);
+            var enemy = new Enemy(_inputProcessor.InputLength, SentenceStorageHelper.Sentences[next], speed);
             _enemyController.Spawn(enemy);
             enemy.Died += OnDied;
         }
@@ -64,5 +65,18 @@ public class BattleController
 
         _enemyController.Despawn(enemy);
         Spawn();
+    }
+
+    public float GetSpeedModifier()
+    {
+        var score = _gameScoreController.Score;
+
+        var baseSpeed = 1f;
+
+        var timeSpeedModifier = score.GameTimeSeconds / 300f;
+        var scoreSpeedModifier = score.Score / 5000f;
+        var speed = baseSpeed + timeSpeedModifier + scoreSpeedModifier;
+
+        return Mathf.Min(speed, 5f);
     }
 }

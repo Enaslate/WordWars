@@ -20,7 +20,7 @@ public class TextInputProcessorTests
 
     private void AddEnemy(string sentence, int startIndex = 0, int lastMatchIndex = -1)
     {
-        var enemy = new Enemy(startIndex, sentence) { LastMatchIndex = lastMatchIndex };
+        var enemy = new Enemy(startIndex, sentence, 1) { LastMatchIndex = lastMatchIndex };
         var gameObj = new GameObject();
         var view = gameObj.AddComponent<EnemyView>();
         _enemies[enemy] = view;
