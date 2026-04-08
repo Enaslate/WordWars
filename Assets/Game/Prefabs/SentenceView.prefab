@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SentenceView
   _camera: {fileID: 0}
   _tmpSentence: {fileID: 8099078074787347457}
-  _offset: {x: 0, y: 30, z: 0}
+  _offset: {x: 0, y: 45, z: 0}
 --- !u!114 &8099078074787347457
 MonoBehaviour:
   m_ObjectHideFlags: 0

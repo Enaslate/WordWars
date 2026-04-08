@@ -3,6 +3,7 @@ using UnityEngine.Pool;
 
 public abstract class PoolController<T> : MonoBehaviour where T : View
 {
+    [SerializeField] protected Transform _container;
     [SerializeField] protected T _prefab;
     [SerializeField] protected int _defaultCapacity = 10;
     [SerializeField] protected int _maxSize = 100;
@@ -17,7 +18,7 @@ public abstract class PoolController<T> : MonoBehaviour where T : View
         }
 
         _pool = new ObjectPool<T>(
-            createFunc: () => Instantiate(_prefab, transform),
+            createFunc: () => Instantiate(_prefab, _container),
             actionOnGet: view => view.gameObject.SetActive(true),
             actionOnRelease: view =>
             {
