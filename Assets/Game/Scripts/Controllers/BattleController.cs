@@ -27,8 +27,10 @@ public class BattleController
 
     public void Spawn()
     {
+        var currentEnemyCountToSpawn = CalculateCurrentEnemyCountToSpawn();
         var speed = GetSpeedModifier();
-        for (int i = _enemyController.Enemies.Count; i < 3; i++)
+
+        for (int i = _enemyController.Enemies.Count; i < currentEnemyCountToSpawn; i++)
         {
             var next = UnityEngine.Random.Range(0, SentenceStorageHelper.Sentences.Length - 1);
             var enemy = new Enemy(_inputProcessor.InputLength, SentenceStorageHelper.Sentences[next], speed);
@@ -65,6 +67,14 @@ public class BattleController
 
         _enemyController.Despawn(enemy);
         Spawn();
+    }
+
+    public int CalculateCurrentEnemyCountToSpawn()
+    {
+        var timeBonus = _gameScoreController.Score.GameTimeSeconds / 60f;
+        var additional = Mathf.FloorToInt(_gameScoreController.Score.Score / 500f + timeBonus);
+        var maxEnemies = 8;
+        return Mathf.Clamp(1 + additional, 1, maxEnemies);
     }
 
     public float GetSpeedModifier()
